@@ -5,6 +5,7 @@ import { Button, Form, Modal } from 'react-bootstrap';
 const API_URL = 'https://api.unsplash.com/search/photos';
 const IMAGES_PER_PAGE = 40;
 
+
 function App() {
   const searchInput = useRef(null);
   const [images, setImages] = useState([]);
@@ -63,15 +64,6 @@ function App() {
     setShowModal(false);
   };
 
-  const downloadImage = (imageUrl) => {
-    const link = document.createElement('a');
-    link.href = imageUrl;
-    link.download = 'image.jpg'; // You can customize the downloaded file name
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
   return (
     <div className='container'>
       <h1 className='title'>PicFinder</h1>
@@ -84,7 +76,9 @@ function App() {
             className='search-input'
             ref={searchInput}
           />
+
         </Form>
+        
       </div>
       <div className='filters'>
         <div onClick={() => handleSelection('cars')}>Cars</div>
@@ -92,6 +86,7 @@ function App() {
         <div onClick={() => handleSelection('watches')}>Watches</div>
         <div onClick={() => handleSelection('shoes')}>Shoes</div>
       </div>
+
       {loading ? (
         <p className='loading'>Loading...</p>
       ) : (
@@ -113,6 +108,7 @@ function App() {
             )}
           </div>
         </>
+
       )}
       <Modal show={showModal} onHide={closeModal}>
         <Modal.Header closeButton>
@@ -128,7 +124,6 @@ function App() {
               />
               <p>Author: {selectedImage.user.username}</p>
               <p>Description: {selectedImage.description || 'N/A'}</p>
-              <Button variant='primary' onClick={() => downloadImage(selectedImage.urls.full)}>Download Image</Button>
             </div>
           )}
         </Modal.Body>
@@ -138,6 +133,9 @@ function App() {
           </Button>
         </Modal.Footer>
       </Modal>
+      <footer className='footer'>
+        <p>© 2024 PicFinder. design and develop by Akshay Katoch. All rights reserved.</p>
+      </footer>
     </div>
   );
 }
